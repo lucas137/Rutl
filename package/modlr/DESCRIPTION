@@ -1,0 +1,12 @@
+Package: modlr
+Title: Model Fitting Utilities for R
+Version: 0.0.0.9001
+Authors@R: person("Nathan", "Lucas", email = "nathan.lucas@wayne.edu", role = c("aut", "cre"))
+Description: Utility functions to make model fitting easier and more consistent.
+Depends: R (>= 3.3.3)
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Imports:
+    stats
+RoxygenNote: 6.0.1

@@ -1,0 +1,13 @@
+Package: datar
+Title: Data Utilities for R
+Version: 0.0.0.9000
+Authors@R: person("Nathan", "Lucas", email = "nathan.lucas@wayne.edu", role = c("aut", "cre"))
+Description: Utility functions to make data manipulation easier and more consistent.
+Depends: R (>= 3.3.3)
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Imports:
+    stats,
+    utils
+RoxygenNote: 6.1.1
