@@ -1,4 +1,4 @@
-#==============================================================================
+#______________________________________________________________________________
 #' Stripplot
 #'
 #' Produces a series of one-dimensional scatterplot.
@@ -18,28 +18,24 @@
 #' @examples \dontrun{
 #' data_stripplot(errors ~ mode, data = data2)
 #' }
-#------------------------------------------------------------------------------
+#______________________________________________________________________________
 data_stripplot <- function(formula, data, groups = NULL,
-                           cex = 0.8, jitter = 0.1, ...)
-{
-  #---------------------------------------------------------
-  # Plot parameters
+                           cex = 0.8, jitter = 0.1, ...) {
 
-  auto_key <- list(         # legend parameters
+  # Plot legend parameters
+  auto_key <- list(
       space   = "right"     # key outside plot, to the right
     , points  = FALSE       # do not show data points
     , lines   = TRUE        # show lines between mean values
     , cex     = cex         # relative character size
   )
 
-  #---------------------------------------------------------
   # The lattice function stripplot() produces one-dimenstional scatter plots.
   # 'formula' is of the form y ~ x, where x is on the X-axis.
   # The 'quote' and 'eval' hack is necessary to pass variable "groups".
   #   https://stat.ethz.ch/pipermail/r-help/2011-August/286707.html
   # A legend is drawn according to the parameters given via 'auto.key'.
   # Note:  The legend is only drawn as required identify data groups.
-  #---------------------------------------------------------
   ccall <- quote(lattice::stripplot(
       x           = formula        # formula
     , data        = data           # data frame
@@ -56,11 +52,12 @@ data_stripplot <- function(formula, data, groups = NULL,
   eval(ccall)
 }
 
-#------------------------------------------------------------------------------
+#______________________________________________________________________________
 # Examples:
 #   https://www.stat.ubc.ca/~jenny/STAT545A/block07_univariatePlotsLattice.html
-#------------------------------------------------------------------------------
+#______________________________________________________________________________
 # 2017-10-13  Created.
 # 2017-10-23  Added variable 'jitter'.
 # 2017-10-27  Incorporated into 'plotr' package.
-#==============================================================================
+# 2021-04-18  Formatting.
+#______________________________________________________________________________

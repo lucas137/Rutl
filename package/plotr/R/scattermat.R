@@ -1,4 +1,4 @@
-#==============================================================================
+#______________________________________________________________________________
 #' Scatterplot Matrix
 #'
 #' Creates a scatter plot matrix.
@@ -17,12 +17,12 @@
 #'
 #' @author  Nathan Lucas
 #' @export
-#------------------------------------------------------------------------------
+#______________________________________________________________________________
 scattermat <- function(x, data, cor.method = "pearson",
                        bold.limit = 0.7, pch = 1,
                        cex.axis = 1.0, cex.cor = 1.0,
-                       cex.labels = 1.0, cex.main = 1.0, ...)
-{
+                       cex.labels = 1.0, cex.main = 1.0, ...) {
+
   # Vectors to be return within data frame
   method_      <- c()
   coefficient_ <- c()
@@ -31,8 +31,7 @@ scattermat <- function(x, data, cor.method = "pearson",
   pvalue_      <- c()
 
   # Perform correlation test and record results
-  cor_test <- function(x, y, method, digits)
-  {
+  cor_test <- function(x, y, method, digits) {
     result <- stats::cor.test(x, y, method = method, exact = FALSE)
 
     # Operator `<<-` assigns value to variable in parent environment
@@ -40,8 +39,7 @@ scattermat <- function(x, data, cor.method = "pearson",
     coefficient_ <<- c(coefficient_, result$estimate)
     statistic_   <<- c(statistic_, result$statistic)
 
-    if (is.null(t_df <- result$parameter))
-    {
+    if (is.null(t_df <- result$parameter)) {
       t_df <- NA
     }
     df_     <<- c(df_, t_df)
@@ -51,8 +49,7 @@ scattermat <- function(x, data, cor.method = "pearson",
   }
 
   # Upper panel containing correlation coefficient(s)
-  panel.cor <- function(x, y, digits = 2, ...)
-  {
+  panel.cor <- function(x, y, digits = 2, ...) {
     horizontal <- (graphics::par("usr")[1] + graphics::par("usr")[2]) / 2
     vertical   <- (graphics::par("usr")[3] + graphics::par("usr")[4]) / 2
 
@@ -61,45 +58,50 @@ scattermat <- function(x, data, cor.method = "pearson",
     options(warn = -1); on.exit(options(warn = prevWarn))
 
     # Pearson correlation
-    if (!is.na(match("pearson", cor.method)))
-    {
+    if (!is.na(match("pearson", cor.method))) {
       r <- cor_test(x, y, "pearson", digits)
       rFont <- 1
-      if (r != "NA")
-      {
-        if (abs(as.numeric(r)) >= bold.limit) { rFont <- 2 }
+      if (r != "NA") {
+        if (abs(as.numeric(r)) >= bold.limit) {
+          rFont <- 2
+        }
       }
     }
     # Spearman correlation
-    if (!is.na(match("spearman", cor.method)))
-    {
+    if (!is.na(match("spearman", cor.method))) {
       s <- cor_test(x, y, "spearman", digits)
       sFont <- 1
-      if (s != "NA")
-      {
-        if (abs(as.numeric(s)) >= bold.limit) { sFont <- 2 }
+      if (s != "NA") {
+        if (abs(as.numeric(s)) >= bold.limit) {
+          sFont <- 2
+        }
       }
     }
 
     # Print coefficient(s) in panel
-    if (exists("r"))
-    {
-      coeff <- if (exists("s")) { paste0(r, "\n") } else { paste0(r) }
+    if (exists("r")) {
+      coeff <- if (exists("s")) {
+        paste0(r, "\n")
+      } else {
+        paste0(r)
+      }
       graphics::text(horizontal, vertical, coeff, cex = cex.cor, font = rFont)
     }
-    if (exists("s"))
-    {
-      coeff <- if (exists("s")) { paste0("\n", s) } else { paste0(s) }
+    if (exists("s")) {
+      coeff <- if (exists("s")) {
+        paste0("\n", s)
+      } else {
+        paste0(s)
+      }
       graphics::text(horizontal, vertical, coeff, cex = cex.cor, font = sFont)
     }
   }
 
   # Diagonal panel containing density plot
-  panel.density <- function(x, ...)
-  {
+  panel.density <- function(x, ...) {
     usr <- graphics::par("usr"); on.exit(graphics::par(usr))
     d   <- stats::density(x)
-    graphics::par("usr" = c(usr[1:2], 0, max(d$y*1.5)))
+    graphics::par("usr" = c(usr[1:2], 0, max(d$y * 1.5)))
     graphics::lines(d)
   }
 
@@ -122,7 +124,8 @@ scattermat <- function(x, data, cor.method = "pearson",
   dat
 }
 
-#------------------------------------------------------------------------------
+#______________________________________________________________________________
 # 2017-04-30  Created.
 # 2017-10-27  Incorporated into 'plotr' package.
-#==============================================================================
+# 2021-04-18  Formatting.
+#______________________________________________________________________________

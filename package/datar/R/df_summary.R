@@ -1,4 +1,4 @@
-#==============================================================================
+#______________________________________________________________________________
 #' Data Frame Summary
 #'
 #' Print summary statistics to console.
@@ -8,24 +8,22 @@
 #' @param    label   a string label for factor.
 #' @author   Nathan Lucas
 #' @export
-#------------------------------------------------------------------------------
-summary_df <- function(data, col, label)
-{
-  if (!is.data.frame(data))
-  {
+#______________________________________________________________________________
+summary_df <- function(data, col, label) {
+  if (!is.data.frame(data)) {
     stop("'data' must be a 'data.frame'")
   }
   x <- levels(data[, col])
-  for (i in x)
-  {
+  for (i in x) {
     cat("\nSummary:", i, label, "\n")
     print(summary(data[data[, col] == i, label]))
   }
 }
 
-#------------------------------------------------------------------------------
+#______________________________________________________________________________
 # Changelog
 # 2017-04-28  Created.
 # 2017-10-11  Copied from multirobot-results analysis.
 # 2017-10-27  Incorporated into 'datar' package.
-#==============================================================================
+# 2021-04-18  Formatting.
+#______________________________________________________________________________

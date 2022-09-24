@@ -1,4 +1,4 @@
-#==============================================================================
+#______________________________________________________________________________
 #' Save Plot to PNG
 #'
 #' Saves a plot as a PNG file and optionally prints the plot.
@@ -14,27 +14,26 @@
 #' @examples
 #' dir.create("plot", showWarnings = FALSE, recursive = TRUE)
 #' plot_png(plot(sin, -pi, pi), file = "plot/sine")
-#------------------------------------------------------------------------------
-plot_png <- function(x, file, prt = TRUE, ...)
-{
-  if (is.null(file) || (file == ""))
-  {
+#______________________________________________________________________________
+plot_png <- function(x, file, prt = TRUE, ...) {
+
+  if (is.null(file) || (file == "")) {
     stop("'file' must contain a file path.")
   }
   filename <- paste(file, ".png", sep = "")
-  if (prt)
-  {
-    utils::capture.output(x)        # print plot
-    grDevices::dev.copy(            # copy to file
+  if (prt) {
+    # Print plot
+    utils::capture.output(x)
+    # Copy to file
+    grDevices::dev.copy(
         device   = grDevices::png
       , filename = filename
       , type     = "cairo"
       , ...
     )
-  }
-  else
-  {
-    grDevices::png(             # graphics device
+  } else {
+    # Graphics device
+    grDevices::png(
         filename = filename
       , type     = "cairo"
       , ...
@@ -45,8 +44,9 @@ plot_png <- function(x, file, prt = TRUE, ...)
   filename                # return file name
 }
 
-#------------------------------------------------------------------------------
+#______________________________________________________________________________
 # Changelog
 # 2017-10-23  Created.
 # 2017-10-30  Simplified/generalized arguments for grDevices::png().
-#==============================================================================
+# 2021-04-18  Formatting.
+#______________________________________________________________________________

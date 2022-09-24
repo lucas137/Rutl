@@ -1,6 +1,6 @@
-#==============================================================================
+#______________________________________________________________________________
 
-#------------------------------------------------------------------------------
+#______________________________________________________________________________
 #' Formula Left-Hand Side
 #'
 #' Extracts the response expression of \code{formula}
@@ -15,18 +15,20 @@
 #' @examples
 #' formula_lhs(y ~ x | g)                   # "y"
 #' formula_lhs(y1 + y2 ~ x1 + x2 | g1/g2)   # "y1 + y2"
-#------------------------------------------------------------------------------
-formula_lhs <- function(x)
-{
-  if (!inherits(x, "formula"))
-  {
+#______________________________________________________________________________
+formula_lhs <- function(x) {
+  if (!inherits(x, "formula")) {
     stop("'x' must contain a formula.")
   }
   lhs_index <- attr(stats::terms(x), "response")
-  if (lhs_index > 0)  { deparse(x[[2]]) } else { "" }
+  if (lhs_index > 0) {
+    deparse(x[[2]])
+  } else {
+    ""
+  }
 }
 
-#------------------------------------------------------------------------------
+#______________________________________________________________________________
 #' Formula Right-Hand Side
 #'
 #' Extracts model term expression of \code{formula}
@@ -41,18 +43,20 @@ formula_lhs <- function(x)
 #' @examples
 #' formula_rhs(y ~ x | g)                   # "x | g"
 #' formula_rhs(y1 + y2 ~ x1 + x2 | g1/g2)   # "x1 + x2 | g1/g2"
-#------------------------------------------------------------------------------
-formula_rhs <- function(x)
-{
-  if (!inherits(x, "formula"))
-  {
+#______________________________________________________________________________
+formula_rhs <- function(x) {
+  if (!inherits(x, "formula")) {
     stop("'x' must contain a formula.")
   }
   lhs_index <- attr(stats::terms(x), "response")
-  if (lhs_index > 0)  { deparse(x[[3]]) } else { deparse(x[[2]]) }
+  if (lhs_index > 0) {
+    deparse(x[[3]])
+  } else {
+    deparse(x[[2]])
+  }
 }
 
-#------------------------------------------------------------------------------
+#______________________________________________________________________________
 #' Parse Formula Expressions
 #'
 #' Extracts component expressions of a \code{formula} object.
@@ -87,11 +91,9 @@ formula_rhs <- function(x)
 #' fe$model         # "x1 + x2 | g1/g2"
 #' fe$covariate     # "x1 + x2"
 #' fe$condition     # "g1/g2"
-#------------------------------------------------------------------------------
-formula_expr <- function(formula)
-{
-  if (!(inherits(formula, "formula")))
-  {
+#______________________________________________________________________________
+formula_expr <- function(formula) {
+  if (!(inherits(formula, "formula"))) {
     stop("'formula' must contain a formula.")
   }
   lhs <- formula_lhs(formula)
@@ -106,21 +108,17 @@ formula_expr <- function(formula)
   )
 }
 
-#------------------------------------------------------------------------------
+#______________________________________________________________________________
 # Alternative using 'nlme' package:
-# parse_formula <- function(formula)
-# {
-#   if (!requireNamespace("nlme", quietly = TRUE))
-#   {
+# parse_formula <- function(formula) {
+#   if (!requireNamespace("nlme", quietly = TRUE)) {
 #     stop("Package 'nlme' needed for this function to work.")
 #   }
 #   f <- stats::as.formula(formula)
-#   if (!(inherits(f, "formula")))
-#   {
+#   if (!(inherits(f, "formula"))) {
 #     stop("'formula' must contain a formula.")
 #   }
-#   y <- if (attr(stats::terms(f), "response"))
-#   {
+#   y <- if (attr(stats::terms(f), "response")) {
 #     nlme::getResponseFormula(f)
 #   }
 #   x <- nlme::getCovariateFormula(f)
@@ -133,9 +131,10 @@ formula_expr <- function(formula)
 #          \code{\link{[nlme]getCovariateFormula}},
 #          \code{\link{[nlme]getGroupsFormula}}
 
-#------------------------------------------------------------------------------
+#______________________________________________________________________________
 # Changelog
 # 2017-10-23  Created.
 # 2017-10-27  Added check of formula class inheritance.
 # 2017-10-29  Rewritten to remove dependence on 'nlme' package.
-#==============================================================================
+# 2021-04-18  Formatting.
+#______________________________________________________________________________

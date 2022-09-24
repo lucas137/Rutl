@@ -1,4 +1,4 @@
-#==============================================================================
+#______________________________________________________________________________
 #' Produces a lattice plot with an array of confidence intervals plots.
 #'
 #' Plots 95% confidence interval on within-subjects intercept and slope.
@@ -26,9 +26,9 @@
 # More tips/ideas:
 #   http://www.ashander.info/posts/2015/04/D-RUG-mixed-effects-viz/
 #
-#------------------------------------------------------------------------------
-plot_lm_confint <- function(formula, data, cex = 1.0, ...)
-{
+#______________________________________________________________________________
+plot_lm_confint <- function(formula, data, cex = 1.0, ...) {
+
   # Get response and conditioning (group) variables
   f_vars <- modlr::formula_expr(formula)
 
@@ -48,7 +48,7 @@ plot_lm_confint <- function(formula, data, cex = 1.0, ...)
   ci <- stats::confint(fm_plm, pooled = TRUE)   # confint.lmList4
   # print(ci)
 
-  #---------------------------------------------------------
+  #_______________________________________________________
   # Plot parameters
 
   # Axis parameters
@@ -72,26 +72,27 @@ plot_lm_confint <- function(formula, data, cex = 1.0, ...)
   )
 
   # Parameter settings supplied to trellis.par.set()
-  par_settings = list(
-      strip.background = list(    # strip background
+  par_settings <- list(
+      strip.background = list(
         col = "gray80"            #   color
     )
-    , layout.widths = list(       # layout widths
+    , layout.widths = list(
         left.padding    = 1       #   adjust default left margin
       , right.padding   = 0       #   adjust default right margin
     )
-    , layout.heights = list(      # layout heights
+    , layout.heights = list(
         top.padding     = 1       #   adjust default top margin
       , bottom.padding  = 1       #   adjust default bottom margin
     )
   )
 
-  #---------------------------------------------------------
+  #_______________________________________________________
   # Note:  Attempting to set 'scales' parameter results in error:
   #   "formal argument "scales" matched by multiple actual arguments"
   # Work around:  Use 'default.scales' to set axis scale settings
 
-  graphics::plot(                     # plot.lmList4.confint
+  # plot.lmList4.confint
+  graphics::plot(
       ci                                # confidence intervals
     , order           = 1               # ordered by intercept (coefficient 1)
     , xlab            = x_par           # x-axis parameters
@@ -101,7 +102,7 @@ plot_lm_confint <- function(formula, data, cex = 1.0, ...)
     , as.table        = TRUE            # draw panels left-right, top-bottom
     , main            = title           # plot title parameters
     , cex             = cex             # relative char size of labels
-    , par.strip.text  = list(cex=cex)   # strip text character size
+    , par.strip.text  = list(cex = cex) # strip text character size
     , par.settings    = par_settings    # parameters for trellis.par.set()
     , ...                               # additional arguments passed to
                                         # panel.dotpot, then panel.xyplot
@@ -115,9 +116,10 @@ plot_lm_confint <- function(formula, data, cex = 1.0, ...)
 #   confint(lm(f, data = subset(data, PID == formula)))
 # })
 
-#------------------------------------------------------------------------------
+#______________________________________________________________________________
 # 2017-10-21  Created.
 # 2017-10-27  Incorporated into 'plotr' package.
 # 2017-10-30  Replace 'nlme' package with 'modlr' package
 #   for formula variable extraction.
-#==============================================================================
+# 2021-04-18  Formatting.
+#______________________________________________________________________________

@@ -1,4 +1,4 @@
-#==============================================================================
+#______________________________________________________________________________
 #' Produces a lattice plot with an array of scatter plots in panels.
 #
 #' Each panel includes a reference line obtained by simple linear regression.
@@ -26,9 +26,9 @@
 #' plot_lm_scatter(y ~ x | group, data = dat, cex = 0.8)
 #' }
 # See:  Bates, D. M. (2010). "lme4: Mixed-effects modeling with R." 58.
-#------------------------------------------------------------------------------
-plot_lm_scatter <- function(formula, data, cex = 1.0, jitter = 0.5, ...)
-{
+#______________________________________________________________________________
+plot_lm_scatter <- function(formula, data, cex = 1.0, jitter = 0.5, ...) {
+
   # x_var <- gsub("\"", "", deparse(substitute(x)), fixed = TRUE)
   # y_var <- gsub("\"", "", deparse(substitute(y)), fixed = TRUE)
   # c_var <- gsub("\"", "", deparse(substitute(c)), fixed = TRUE)
@@ -38,7 +38,7 @@ plot_lm_scatter <- function(formula, data, cex = 1.0, jitter = 0.5, ...)
   x_var <- fe$covariate
   c_var <- fe$condition
 
-  #---------------------------------------------------------
+  #_______________________________________________________
   # Simple linear regression for reference lines
 
   # Linear model formula without conditioning variable
@@ -56,7 +56,7 @@ plot_lm_scatter <- function(formula, data, cex = 1.0, jitter = 0.5, ...)
   # print(lm_coef)
   # print(lm_coef[1, ])
 
-  #---------------------------------------------------------
+  #_______________________________________________________
 
   # Create a new factor ordered by the intercept and
   # use it as the conditioning variable in the plot
@@ -65,7 +65,7 @@ plot_lm_scatter <- function(formula, data, cex = 1.0, jitter = 0.5, ...)
   # Define plot formula, including conditioning variable
   formula <- stats::as.formula(paste(y_var, "~", x_var, "|cond"))
 
-  #---------------------------------------------------------
+  #_______________________________________________________
   # Plot parameters
   #
   # See 'textGrob' and 'gpar' for generic parameter values
@@ -76,7 +76,7 @@ plot_lm_scatter <- function(formula, data, cex = 1.0, jitter = 0.5, ...)
   #     3 = italic
   #     4 = bold italic
   # just : justification of text relative to its (x, y) location
-  #---------------------------------------------------------
+  #_______________________________________________________
 
   # Axis parameters
   x_par <- list(
@@ -112,15 +112,15 @@ plot_lm_scatter <- function(formula, data, cex = 1.0, jitter = 0.5, ...)
   )
 
   # Parameter settings supplied to trellis.par.set()
-  par_settings = list(
-      strip.background = list(    # strip background
-        col = "gray80"            #   color
+  par_settings <- list(
+      strip.background = list(
+        col = "gray80"          #   color
       )
-    , layout.widths = list(       # layout widths
+    , layout.widths = list(
         left.padding    = 1       #   adjust default left margin
       , right.padding   = 0       #   adjust default right margin
       )
-    , layout.heights = list(      # layout heights
+    , layout.heights = list(
         top.padding     = 0       #   adjust default top margin
       , bottom.padding  = 1       #   adjust default bottom margin
       )
@@ -129,7 +129,7 @@ plot_lm_scatter <- function(formula, data, cex = 1.0, jitter = 0.5, ...)
   # Margin parameters 'oma' and 'mar' have little apparent impact, possibly
   # due to panel dimensions being largely dictated by the 'aspect' parameter.
 
-  #---------------------------------------------------------
+  #_______________________________________________________
   # The lattice function xyplot() produces scatter plots.
   # 'formula' is of the form y ~ x|f, where x is on the X-axis,
   # y is on the Y-axis, and f is a factor that determines panels.
@@ -143,8 +143,9 @@ plot_lm_scatter <- function(formula, data, cex = 1.0, jitter = 0.5, ...)
   #   "a"       average (can be useful for creating interaction plots)
   #   "smooth"  loess fit
   #   "spline"  cubic smoothing split fit
-  #---------------------------------------------------------
-  lattice::xyplot(                    # lattice::trellis.object
+  #_______________________________________________________
+  # lattice::trellis.object
+  lattice::xyplot(
       x         = formula             # lattice plot formula
     , data      = data                # data frame
     , aspect    = "xy"                # 45 degree banking rule
@@ -160,7 +161,7 @@ plot_lm_scatter <- function(formula, data, cex = 1.0, jitter = 0.5, ...)
     , grid      = TRUE                # add reference grid
     , jitter.x  = (jitter > 0)        # TRUE to jitter points to avoid overlap
     , factor    = jitter              # amount of jitter
-    , par.strip.text = list(cex=cex)  # strip text character size
+    , par.strip.text = list(cex = cex)  # strip text character size
     , par.settings   = par_settings   # parameters for trellis.par.set()
     , ...                             # further arguments
   )
@@ -179,7 +180,7 @@ plot_lm_scatter <- function(formula, data, cex = 1.0, jitter = 0.5, ...)
 # (fm1 <- lme4::lmer(cmdRatio ~ mode + (mode|PID), data))
 # (fm2 <- lme4::lmer(cmdRatio ~ mode + (1|PID) + (0+mode|PID), data))
 
-#------------------------------------------------------------------------------
+#______________________________________________________________________________
 # 2017-10-13  Created.
 # 2017-10-23  Added variable 'jitter'.
 # 2017-10-27  Incorporated into 'plotr' package.
@@ -188,4 +189,5 @@ plot_lm_scatter <- function(formula, data, cex = 1.0, jitter = 0.5, ...)
 #   to remove references to "PID", a variable name specific to the data
 #   frames used when initially creating the function.
 # 2017-10-30  Refined plot parameters.
-#==============================================================================
+# 2021-04-18  Formatting.
+#______________________________________________________________________________

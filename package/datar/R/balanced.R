@@ -1,4 +1,4 @@
-#==============================================================================
+#______________________________________________________________________________
 #' Check Data Balance
 #'
 #' Checks whether data \code{data} are balanced by cross-tabulating
@@ -21,13 +21,11 @@
 #' dat <- read_csv(file = "mydata", factors = c(1:5))
 #' balanced(~ PID + mode + trial + robot, dat)
 #' }
-#------------------------------------------------------------------------------
-balanced <- function(formula, data)
-{
+#______________________________________________________________________________
+balanced <- function(formula, data) {
   ct  <- stats::xtabs(formula, data)    # contingency table
   bal <- all(ct == 1)                   # ct values should all be '1'
-  if (!bal)
-  {
+  if (!bal) {
     cat(paste0("WARNING: unbalaned design: ",
                deparse(substitute(data)), "\n",   # data frame variable name
                "contingency table:\n"
@@ -37,7 +35,8 @@ balanced <- function(formula, data)
   bal   # return
 }
 
-#------------------------------------------------------------------------------
+#______________________________________________________________________________
 # Changelog
 # 2017-10-26  Created.
-#==============================================================================
+# 2021-04-18  Formatting.
+#______________________________________________________________________________
